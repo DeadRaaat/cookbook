@@ -5,6 +5,10 @@ body{background:#271b1d;background-image:radial-gradient(ellipse at 80% 15%,#683
 header{background:#271b1d;border-bottom:1px solid #6d4647}
 .logo{font-family:Georgia,serif;font-size:27px;font-weight:400;letter-spacing:-.7px}
 nav a{color:#d9c8ad}
+.nav-add{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:0 17px;border:1px solid #b27577;background:#77414a;color:#f2e5d4;font:14px "Trebuchet MS",Arial,sans-serif;text-decoration:none;white-space:nowrap;border-radius:2px}
+.nav-add:hover{background:#95525b}
+.nav-add:focus-visible{outline:2px solid #d5ac8d;outline-offset:4px}
+.nav-add span{font-size:21px;line-height:1}
 .hero{grid-template-columns:1.1fr 1fr;gap:74px;padding-top:50px;padding-bottom:72px;background:none;align-items:center}
 .hero-copy{grid-column:1;grid-row:1;padding-left:24px;border-left:2px solid #8b5a54}
 .hero .kicker{color:#d5ac8d;letter-spacing:2.5px;font-size:10px}
@@ -56,6 +60,8 @@ footer{color:#ccb6ad}
   .grid{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:520px){
+  .nav{gap:12px}
+  .nav-add{font-size:12px;padding:0 11px;gap:8px}
   h1{font-size:42px}
   .hero-copy{padding-left:16px}
   .hero-art figcaption{display:block;text-align:center}

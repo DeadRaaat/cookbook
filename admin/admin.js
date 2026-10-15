@@ -37,6 +37,31 @@ function enableListFormNavigation() {
   }, true);
 }
 
+function enableDirectRecipeCreation() {
+  if (new URL(location.href).searchParams.get("new") !== "recipe") return;
+  let frame;
+  const observer = new MutationObserver(() => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      const add = Array.from(document.querySelectorAll("button"))
+        .find(button => button.textContent.trim() === "Добавить рецепт" && !button.disabled && button.getClientRects().length);
+      if (!add) return;
+      observer.disconnect();
+      // Consume the intent before adding: reload must not create a second draft.
+      const url = new URL(location.href);
+      url.searchParams.delete("new");
+      history.replaceState(history.state, "", url);
+      add.click();
+    });
+  });
+  // Keep waiting across the login screen; the editor is mounted after sign-in.
+  observer.observe(document.body, {childList: true, subtree: true, attributes: true});
+  window.addEventListener("pagehide", () => {
+    observer.disconnect();
+    cancelAnimationFrame(frame);
+  }, {once: true});
+}
+
 async function startAdmin() {
   const status = document.getElementById("admin-status");
   const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
@@ -85,6 +110,7 @@ async function startAdmin() {
       config = {local_backend: false, backend: {name: "github-token"}};
     }
     enableListFormNavigation();
+    enableDirectRecipeCreation();
     window.CMS.init({config});
     document.getElementById("admin-setup").hidden = true;
   } catch (error) {
