@@ -1,0 +1,10 @@
+node_modules/
+_site/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+__pycache__/
+# Keep the original personal photo local; the website uses assets/homemade-bread.jpeg.
+E9C56328-1AAE-4557-AFF6-1C4E81218F33_1_105_c.jpeg

@@ -1,0 +1,90 @@
+backend:
+  name: github
+  repo: DeadRaaat/cookbook
+  branch: main
+  commit_messages:
+    update: "Update recipes"
+    uploadMedia: "Upload recipe photo"
+
+local_backend:
+  url: http://127.0.0.1:8081/api/v1
+
+locale: ru
+media_folder: assets/uploads
+public_folder: /assets/uploads
+site_url: https://receptes.z0.lv/
+display_url: https://receptes.z0.lv/
+logo_url: ../assets/homemade-bread.jpeg
+
+collections:
+  - name: cookbook
+    label: Мои рецепты
+    editor:
+      preview: false
+    files:
+      - name: recipes
+        label: Коллекция рецептов
+        file: data/recipes.json
+        format: json
+        fields:
+          - name: recipes
+            label: Рецепты
+            label_singular: Рецепт
+            widget: list
+            summary: "{{fields.title}} · {{fields.cat}}"
+            collapsed: true
+            fields:
+              - {name: title, label: Название, widget: string}
+              - name: cat
+                label: Категория
+                widget: relation
+                collection: settings
+                file: categories
+                search_fields: ["categories.*.name"]
+                value_field: "categories.*.name"
+                display_fields: ["categories.*.name"]
+                hint: "Новые категории добавляются в разделе «Категории → Мои категории». Сначала сохраните категорию, затем выберите её здесь."
+              - {name: time, label: Время приготовления, widget: string, hint: "Например: 1 ч 20 мин"}
+              - {name: desc, label: Краткое описание, widget: text}
+              - name: image
+                label: Фото
+                widget: image
+                required: false
+                hint: "Загрузите JPG, PNG или WebP. Без фото на карточке будет значок."
+                media_library:
+                  config:
+                    multiple: false
+              - {name: emoji, label: Значок без фото, widget: string, default: "🍞", required: false}
+              - name: ing
+                label: Ингредиенты
+                label_singular: Ингредиент
+                widget: list
+                min: 1
+                hint: "Каждый ингредиент — отдельный пункт с количеством."
+                field: {name: ingredient, label: Ингредиент, widget: string}
+              - name: steps
+                label: Приготовление
+                widget: text
+                hint: "Пишите шаги с новой строки — переносы сохранятся на сайте."
+
+  - name: settings
+    label: Категории
+    editor:
+      preview: false
+    files:
+      - name: categories
+        label: Мои категории
+        file: data/categories.json
+        format: json
+        fields:
+          - name: categories
+            label: Категории
+            label_singular: Категорию
+            widget: list
+            collapsed: true
+            summary: "{{fields.name}}"
+            fields:
+              - name: name
+                label: Название категории
+                widget: string
+                pattern: ['^(?!\s*Все\s*$).*\S.*$', 'Введите название. «Все» — служебная кнопка сайта.']

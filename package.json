@@ -1,0 +1,17 @@
+{
+  "name": "receptes",
+  "private": true,
+  "scripts": {
+    "cms": "BIND_HOST=127.0.0.1 decap-server",
+    "serve": "python3 -m http.server 8000 --bind 127.0.0.1",
+    "check": "python3 scripts/validate_recipes.py",
+    "test": "python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "test:auth": "node --test scripts/test_token_auth.cjs"
+  },
+  "devDependencies": {
+    "decap-server": "3.11.3"
+  },
+  "overrides": {
+    "simple-git": "4.0.2"
+  }
+}

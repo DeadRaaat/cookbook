@@ -1,0 +1,67 @@
+/* Final design: Dark Academia — Library. */
+:root{--cream:#271b1d;--deep:#eee2cc;--rose:#d5ac8d;--pink:#68533a;--line:#6d4647;--white:#352426;color-scheme:dark}
+html{scroll-padding-top:90px}
+body{background:#271b1d;background-image:radial-gradient(ellipse at 80% 15%,#68333b40,transparent 60%);color:#eee2cc}
+header{background:#271b1d;border-bottom:1px solid #6d4647}
+.logo{font-family:Georgia,serif;font-size:27px;font-weight:400;letter-spacing:-.7px}
+nav a{color:#d9c8ad}
+.hero{grid-template-columns:1.1fr 1fr;gap:74px;padding-top:50px;padding-bottom:72px;background:none;align-items:center}
+.hero-copy{grid-column:1;grid-row:1;padding-left:24px;border-left:2px solid #8b5a54}
+.hero .kicker{color:#d5ac8d;letter-spacing:2.5px;font-size:10px}
+h1{color:#f3e0d3;font-size:clamp(48px,5vw,66px);line-height:1.12;font-weight:400;letter-spacing:-1.7px}
+h1 em{color:#d5ac8d}
+.hero p{color:#ccb6ad;font-size:17px;line-height:1.9}
+.hero-note{color:#b09b7e;font-size:13px}
+.hero-note:before{background:#826d4d}
+.hero .cta{background:#77414a;border:1px solid #b27577;border-radius:0;color:#f2e5d4;text-decoration:none;padding:16px 26px}
+.hero .cta:hover{background:#95525b}
+.hero .cta:focus-visible{outline:3px solid #d5ac8d;outline-offset:4px}
+.hero-art{grid-column:2;grid-row:1;border-radius:2px;padding:12px 12px 0;background:#3d2929;border:1px solid #a37560;outline:1px solid #623d3f;outline-offset:6px;box-shadow:12px 12px 0 #1b121580}
+.hero-art img{border-radius:1px}
+.hero-art figcaption{padding:20px 2px;color:#ddbaa4;font-size:13px}
+.hero-art figcaption span:last-child{color:#d5ac8d;font-size:9px;letter-spacing:1.5px}
+.section-head{border-top:1px solid #6d4647;padding-top:30px}
+h2,.card h3{font-family:Georgia,serif;font-weight:400;color:#f3e0d3}
+h2{font-size:38px}
+.filter{border-radius:2px;background:transparent;color:#d6c5a8;border-color:#6d4647;font-family:Georgia,serif}
+.filter.active,.filter:hover{background:#352426;border-color:#d5ac8d;color:#fff0d5}
+.search{border-radius:2px;background:#352426;border-color:#6d4647;color:#efe1c5;font-family:Georgia,serif}
+.search::placeholder{color:#b4a38a;opacity:1}
+.search:focus{outline:2px solid #d5ac8d;outline-offset:3px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.card{display:grid;grid-template-columns:33% minmax(0,1fr);background:#352426;border:1px solid #6d4647;border-radius:0;box-shadow:0 7px 20px #10090c25}
+.card:hover{border-color:#d5ac8d;box-shadow:0 12px 25px #0003}
+.card .photo{height:100%;min-height:230px;background:linear-gradient(135deg,#51343b,#402a30);border-right:1px solid #6d4647;font-size:56px}
+.card:nth-child(2n) .photo{background:linear-gradient(135deg,#594033,#402d29)}
+.card-body{padding:24px}
+.card h3{font-size:24px}
+.tag{color:#d5ac8d;font-size:10px;letter-spacing:1.6px}
+.meta,.desc{color:#ccb6ad}
+.recipe-btn{background:transparent;border:0;border-bottom:1px solid #9f6f64;padding:6px 0;color:#dfbba3;border-radius:0;font-family:Georgia,serif}
+.recipe-btn:focus-visible,.filter:focus-visible,nav a:focus-visible{outline:2px solid #d5ac8d;outline-offset:4px}
+.about{background:#352426;border-top:1px solid #6d4647;border-bottom:1px solid #6d4647}
+.about p{color:#ccb6ad}
+footer{color:#ccb6ad}
+.muted,#recipes-status{color:#bba88c}
+.modal{background:#0e0c0acc}
+.modal-box{background:#352426;border:1px solid #6d4647;border-radius:3px;color:#e8d8bd}
+.recipe-photo{background:#493b2b;border-radius:2px}
+.close{color:#d5be98}
+@media(max-width:1100px){.hero{gap:44px}}
+@media(max-width:800px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:36px;padding-top:32px;padding-bottom:40px}
+  .hero-copy,.hero-art{grid-column:auto;grid-row:auto}
+  .hero-copy{padding-left:20px}
+  .hero-art{max-width:390px;width:calc(100% - 24px)}
+  .grid{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:520px){
+  h1{font-size:42px}
+  .hero-copy{padding-left:16px}
+  .hero-art figcaption{display:block;text-align:center}
+  .hero-art figcaption span:last-child{display:block;margin-top:7px}
+  .card-body{padding:18px 14px}
+  .card h3{font-size:20px}
+  .card .photo{font-size:42px;min-height:220px}
+}
+@media(prefers-reduced-motion:reduce){.card,.hero .cta{transition:none}}

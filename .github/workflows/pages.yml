@@ -22,10 +22,19 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Validate recipes
+        run: |
+          python3 scripts/validate_recipes.py
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+          node --test scripts/test_token_auth.cjs
+
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp sakura_bakery.html _site/index.html
+          cp index.html _site/index.html
+          cp CNAME _site/CNAME
+          cp -R assets _site/assets
+          cp -R data admin _site/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

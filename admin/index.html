@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Мои рецепты — Receptes</title>
+  <style>
+    body{margin:0;background:#fffaf7;color:#4b3038;font:16px/1.7 system-ui,sans-serif}
+    .setup{max-width:620px;margin:12vh auto;padding:32px}
+    h1{font:38px Georgia,serif;line-height:1.2}
+    a{color:#a45d72}
+    code{background:#f4e7e5;padding:3px 6px;border-radius:4px}
+    #admin-status{white-space:pre-line}
+    .token-login{max-width:520px;margin:8vh auto;padding:28px;font:16px/1.7 system-ui,sans-serif}
+    .token-login h1{font-size:32px}
+    .token-login label{display:block;margin-bottom:8px;font-weight:600}
+    .token-login input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #aa7b81;border-radius:4px;font:inherit;background:white;color:#271b1d}
+    .token-login button{display:block;margin-top:16px;padding:12px 22px;background:#77414a;color:white;border:0;border-radius:4px;font:inherit;cursor:pointer}
+    .token-login button:disabled{opacity:.6;cursor:wait}
+    .token-login small{display:block;color:#705a61;line-height:1.6}
+    .token-login [role=alert]{color:#a02035}
+  </style>
+  <script>window.CMS_MANUAL_INIT = true;</script>
+  <script src="token-auth.js" defer></script>
+  <script src="admin.js?v=4" defer></script>
+</head>
+<body>
+  <section class="setup" id="admin-setup">
+    <a href="../">← Вернуться на сайт</a>
+    <h1>Мои рецепты</h1>
+    <p id="admin-status" role="status">Загружаем редактор…</p>
+    <p>В редакторе откройте «Мои рецепты → Коллекция рецептов», добавьте рецепт, загрузите фото и нажмите «Опубликовать». Свои категории добавляйте в разделе «Категории → Мои категории».</p>
+    <p>Локально изменения сохраняются на вашем компьютере. На GitHub Pages — в репозитории, после чего сайт обновляется автоматически.</p>
+  </section>
+  <noscript>Для редактирования рецептов включите JavaScript.</noscript>
+</body>
+</html>
