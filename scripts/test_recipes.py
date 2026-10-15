@@ -1,22 +1,43 @@
 import copy
-import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
-from validate_recipes import ROOT, validate, validate_categories
+from validate_recipes import validate, validate_categories
 
 
 class RecipeValidationTests(unittest.TestCase):
     def setUp(self):
-        self.data = json.loads((ROOT / "data/recipes.json").read_text(encoding="utf-8"))
+        # Unit tests must not depend on recipes added or removed by the owner.
+        self.data = {
+            "recipes": [{
+                "title": "Тестовый хлеб",
+                "cat": "Хлеб",
+                "time": "1 час",
+                "desc": "Рецепт только для тестов",
+                "ing": ["500 г муки", "350 мл воды"],
+                "steps": "Замесите тесто. Выпекайте до готовности.",
+            }]
+        }
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name).resolve()
+        (root / "assets").mkdir()
+        (root / "assets/test-photo.jpeg").write_bytes(b"test photo fixture")
+        (root / "README.md").write_text("Outside assets", encoding="utf-8")
+        root_patch = patch("validate_recipes.ROOT", root)
+        root_patch.start()
+        self.addCleanup(root_patch.stop)
 
-    def test_existing_recipes(self):
+    def test_valid_recipe(self):
         validate(self.data)
 
     def test_empty_collection(self):
         validate({"recipes": []})
 
     def test_photo_with_pages_media_path(self):
-        self.data["recipes"][0]["image"] = "/assets/homemade-bread.jpeg"
+        self.data["recipes"][0]["image"] = "/assets/test-photo.jpeg"
         validate(self.data)
 
     def test_invalid_required_fields(self):
