@@ -46,7 +46,7 @@ function photoUrl(path) {
 function recipePhoto(recipe, className, lazy = true) {
   const container = element("div", className);
   const fallback = recipe.emoji || "🍞";
-  const url = photoUrl(recipe.image);
+  const url = recipe.previewImage || photoUrl(recipe.image);
   if (!url) {
     container.textContent = fallback;
     return container;
@@ -107,6 +107,7 @@ function openRecipe(index, button) {
 }
 
 function closeModal() {
+  if (!modal.classList.contains("show")) return;
   modal.classList.remove("show");
   if (lastRecipeButton) lastRecipeButton.focus();
 }
@@ -115,6 +116,15 @@ search.addEventListener("input", render);
 document.querySelector(".close").addEventListener("click", closeModal);
 modal.addEventListener("click", event => {if (event.target === modal) closeModal();});
 document.addEventListener("keydown", event => {if (event.key === "Escape") closeModal();});
+window.addEventListener("recipe-published", event => {
+  recipes.unshift({...event.detail.recipe, previewImage:event.detail.previewUrl, justPublished:true});
+  const categories = Array.from(filters.querySelectorAll("button")).map(button => button.dataset.cat);
+  current = "Все";
+  search.value = "";
+  loaded = true;
+  renderCategories(categories);
+  render();
+});
 
 async function loadRecipes() {
   try {
@@ -125,7 +135,8 @@ async function loadRecipes() {
       recipe && ["title", "cat", "time", "desc", "steps"].every(key => typeof recipe[key] === "string") &&
       Array.isArray(recipe.ing) && recipe.ing.every(ingredient => typeof ingredient === "string")
     )) throw new Error("Некорректный формат рецептов");
-    recipes = data.recipes.map(recipe => ({...recipe, cat: recipe.cat.trim()}));
+    const published = recipes.filter(recipe => recipe.justPublished);
+    recipes = [...published, ...data.recipes.map(recipe => ({...recipe, cat: recipe.cat.trim()}))];
     let categories = [];
     try {
       const categoryResponse = await fetch("data/categories.json", {cache: "no-cache"});

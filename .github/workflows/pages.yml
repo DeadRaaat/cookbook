@@ -27,6 +27,7 @@ jobs:
           python3 scripts/validate_recipes.py
           python3 -m unittest discover -s scripts -p 'test_*.py'
           node --test scripts/test_token_auth.cjs
+          node --test scripts/test_publish.mjs
 
       - name: Prepare site
         run: |

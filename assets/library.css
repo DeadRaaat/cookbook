@@ -5,7 +5,7 @@ body{background:#271b1d;background-image:radial-gradient(ellipse at 80% 15%,#683
 header{background:#271b1d;border-bottom:1px solid #6d4647}
 .logo{font-family:Georgia,serif;font-size:27px;font-weight:400;letter-spacing:-.7px}
 nav a{color:#d9c8ad}
-.nav-add{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:0 17px;border:1px solid #b27577;background:#77414a;color:#f2e5d4;font:14px "Trebuchet MS",Arial,sans-serif;text-decoration:none;white-space:nowrap;border-radius:2px}
+.nav-add{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:0 17px;border:1px solid #b27577;background:#77414a;color:#f2e5d4;font:14px "Trebuchet MS",Arial,sans-serif;text-decoration:none;white-space:nowrap;border-radius:2px;cursor:pointer}
 .nav-add:hover{background:#95525b}
 .nav-add:focus-visible{outline:2px solid #d5ac8d;outline-offset:4px}
 .nav-add span{font-size:21px;line-height:1}
@@ -51,6 +51,37 @@ footer{color:#ccb6ad}
 .modal-box{background:#352426;border:1px solid #6d4647;border-radius:3px;color:#e8d8bd}
 .recipe-photo{background:#493b2b;border-radius:2px}
 .close{color:#d5be98}
+.recipe-editor{box-sizing:border-box;width:calc(100% - 32px);max-width:680px;max-height:90dvh;padding:30px;border:1px solid #a37560;border-radius:4px;background:#352426;color:#eee2cc;box-shadow:0 24px 80px #0008}
+.recipe-editor::backdrop{background:#130d10cc;backdrop-filter:blur(3px)}
+body:has(.recipe-editor[open]){overflow:hidden}
+.editor-heading{display:flex;justify-content:space-between;align-items:start;gap:16px}
+.editor-heading h2{font-size:32px;margin-top:8px}
+.editor-close{border:0;background:none;color:#dfbba3;font-size:30px;cursor:pointer;min-width:40px;min-height:40px;line-height:1}
+.editor-intro{color:#ccb6ad;font-size:15px;line-height:1.7}
+.recipe-editor fieldset{padding:0;margin:24px 0 0;border:0;min-width:0}
+.recipe-editor label{display:block;font-size:15px;line-height:1.6;margin-bottom:18px;color:#f3e0d3}
+.recipe-editor input,.recipe-editor select,.recipe-editor textarea{box-sizing:border-box;display:block;width:100%;min-width:0;margin-top:7px;padding:11px 12px;border:1px solid #80595b;border-radius:3px;background:#271b1d;color:#eee2cc;font:15px/1.5 "Trebuchet MS",Arial,sans-serif}
+.recipe-editor textarea{resize:vertical}
+.recipe-editor input::placeholder,.recipe-editor textarea::placeholder{color:#b49c95;opacity:1}
+.recipe-editor :is(input,select,textarea,button,summary):focus-visible{outline:2px solid #d5ac8d;outline-offset:3px}
+.recipe-editor small,.editor-optional{display:block;margin-top:5px;color:#bfa99e;font-size:12px;font-weight:400}
+.editor-optional{display:inline;margin-left:5px}
+.editor-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.editor-access{border-top:1px solid #6d4647;padding-top:15px;margin-bottom:24px;font-size:14px;line-height:1.7;color:#ccb6ad}
+.editor-access summary{cursor:pointer;color:#dfbba3}
+.editor-access a{color:#dfbba3}
+.editor-access>label{margin-bottom:12px}
+.editor-actions{display:flex;gap:12px;flex-wrap:wrap}
+.editor-actions button{padding:12px 20px;border:1px solid #b27577;border-radius:2px;font:14px/1.5 "Trebuchet MS",Arial,sans-serif;cursor:pointer}
+.editor-publish{background:#77414a;color:#f2e5d4}
+.editor-publish:hover{background:#95525b}
+.editor-cancel{background:transparent;color:#dfbba3}
+.recipe-editor fieldset:disabled{opacity:.65}
+.recipe-editor fieldset:disabled button{cursor:wait}
+#editor-status{white-space:pre-line;font-size:14px;line-height:1.7;margin-bottom:0;color:#dfbba3}
+#editor-status[data-error]{color:#ffb9b9}
+.editor-photo-preview{display:block;width:100%;max-height:230px;object-fit:contain;margin:0 0 20px;background:#271b1d;border-radius:3px}
+.editor-photo-preview[hidden]{display:none}
 @media(max-width:1100px){.hero{gap:44px}}
 @media(max-width:800px){
   .hero{grid-template-columns:minmax(0,1fr);gap:36px;padding-top:32px;padding-bottom:40px}
@@ -60,6 +91,9 @@ footer{color:#ccb6ad}
   .grid{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:520px){
+  .recipe-editor{padding:22px 18px;max-height:94dvh}
+  .editor-heading h2{font-size:28px}
+  .editor-row{grid-template-columns:1fr;gap:0}
   .nav{gap:12px}
   .nav-add{font-size:12px;padding:0 11px;gap:8px}
   h1{font-size:42px}

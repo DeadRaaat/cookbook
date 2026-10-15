@@ -6,7 +6,8 @@
     "serve": "python3 -m http.server 8000 --bind 127.0.0.1",
     "check": "python3 scripts/validate_recipes.py",
     "test": "python3 -m unittest discover -s scripts -p 'test_*.py'",
-    "test:auth": "node --test scripts/test_token_auth.cjs"
+    "test:auth": "node --test scripts/test_token_auth.cjs",
+    "test:publish": "node --test scripts/test_publish.mjs"
   },
   "devDependencies": {
     "decap-server": "3.11.3"

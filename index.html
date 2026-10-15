@@ -76,7 +76,7 @@ footer{padding:30px 24px;text-align:center;color:#8c777d;font-size:14px}
   <div class="nav">
     <div class="logo">Receptes</div>
     <nav><a href="#recipes">Рецепты</a><a href="#about">О нас</a></nav>
-    <a class="nav-add" href="admin/?new=recipe#/collections/cookbook/entries/recipes">Добавить рецепт <span aria-hidden="true">+</span></a>
+    <button class="nav-add" id="add-recipe" type="button">Добавить рецепт <span aria-hidden="true">+</span></button>
   </div>
 </header>
 
@@ -122,6 +122,36 @@ footer{padding:30px 24px;text-align:center;color:#8c777d;font-size:14px}
  </div>
 </div>
 
+<dialog class="recipe-editor" id="recipe-editor" aria-labelledby="editor-heading">
+  <div class="editor-heading">
+    <div><div class="kicker">Из вашей кухни</div><h2 id="editor-heading">Добавить рецепт</h2></div>
+    <button class="editor-close" id="editor-close" type="button" aria-label="Закрыть форму">×</button>
+  </div>
+  <p class="editor-intro">Сохраните любимый рецепт в своей коллекции. После публикации он появится на сайте автоматически.</p>
+  <form id="recipe-form">
+    <fieldset id="recipe-fields">
+      <label>Название<input name="title" required maxlength="160" placeholder="Например, мой домашний хлеб"></label>
+      <div class="editor-row">
+        <label>Категория<input name="cat" list="editor-categories" required maxlength="100" placeholder="Выберите или введите свою"><datalist id="editor-categories"></datalist></label>
+        <label>Время приготовления<input name="time" required maxlength="80" placeholder="1 ч 20 мин"></label>
+      </div>
+      <label>Краткое описание<textarea name="desc" required rows="2" maxlength="2000" placeholder="Чем вам нравится этот рецепт?"></textarea></label>
+      <label>Фотография <span class="editor-optional">необязательно</span><input name="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG или WebP, до 8 МБ.</small></label>
+      <img id="editor-photo-preview" class="editor-photo-preview" alt="Предпросмотр фотографии рецепта" hidden>
+      <label>Ингредиенты<textarea name="ingredients" required rows="5" placeholder="500 г муки&#10;350 мл воды&#10;10 г соли"></textarea><small>Каждый ингредиент с количеством — с новой строки.</small></label>
+      <label>Приготовление<textarea name="steps" required rows="6" maxlength="30000" placeholder="1. Смешайте ингредиенты.&#10;2. Замесите тесто…"></textarea></label>
+      <details class="editor-access" id="editor-access" open>
+        <summary>Доступ к публикации</summary>
+        <p id="editor-token-hint">Только владелец сайта может сохранять рецепты. Токен остаётся в памяти этой вкладки, а не в файлах сайта.</p>
+        <label>Токен GitHub<input name="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required></label>
+        <details><summary>Где взять токен?</summary><p>В <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">настройках GitHub</a> создайте fine-grained токен: Resource owner — DeadRaaat, репозиторий — только cookbook, разрешение Contents — Read and write. Сохраните его в менеджере паролей. Не присылайте токен в чат.</p></details>
+      </details>
+      <div class="editor-actions"><button class="editor-publish" type="submit">Опубликовать рецепт</button><button class="editor-cancel" id="editor-cancel" type="button">Отмена</button></div>
+    </fieldset>
+    <p id="editor-status" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
 <script src="assets/recipes.js" defer></script>
+<script type="module" src="assets/recipe-editor.mjs"></script>
 </body>
 </html>
