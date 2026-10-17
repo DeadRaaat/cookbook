@@ -44,7 +44,7 @@ collections:
                 value_field: "categories.*.name"
                 display_fields: ["categories.*.name"]
                 hint: "Новые категории добавляются в разделе «Категории → Мои категории». Сначала сохраните категорию, затем выберите её здесь."
-              - {name: time, label: Время приготовления, widget: string, hint: "Например: 1 ч 20 мин"}
+              - {name: time, label: Время приготовления, widget: string, required: false, hint: "Например: 1 ч 20 мин"}
               - {name: desc, label: Краткое описание, widget: text}
               - name: image
                 label: Фото

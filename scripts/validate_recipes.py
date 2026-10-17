@@ -21,8 +21,9 @@ def validate(data):
     assert isinstance(data, dict) and isinstance(data.get("recipes"), list), "Expected recipes list"
     for index, recipe in enumerate(data["recipes"], 1):
         assert isinstance(recipe, dict), f"Recipe {index}: expected an object"
-        for field in ("title", "cat", "time", "desc", "steps"):
+        for field in ("title", "cat", "desc", "steps"):
             assert isinstance(recipe.get(field), str) and recipe[field].strip(), f"Recipe {index}: missing {field}"
+        assert isinstance(recipe.get("time", ""), str), f"Recipe {index}: invalid time"
         assert recipe["cat"].strip() != "Все", f"Recipe {index}: category 'Все' is reserved"
         assert isinstance(recipe.get("ing"), list) and recipe["ing"], f"Recipe {index}: missing ingredients"
         assert all(isinstance(item, str) and item.strip() for item in recipe["ing"]), f"Recipe {index}: invalid ingredients"

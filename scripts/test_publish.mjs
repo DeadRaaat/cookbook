@@ -41,6 +41,12 @@ test("ingredients and multiline steps are preserved", () => {
 test("blank fields and reserved categories are rejected", () => {
   for (const patch of [{title:" "},{cat:"Все"},{ingredients:"\n"}]) assert.throws(()=>validateRecipe({...input,...patch}));
 });
+test("cooking time is optional", () => {
+  const {time, ...withoutTime} = input;
+  assert.equal(validateRecipe(withoutTime).time, "");
+  for (const time of ["", "   "]) assert.equal(validateRecipe({...input, time}).time, "");
+  assert.throws(() => validateRecipe({...input, time:"x".repeat(81)}));
+});
 test("recipe publication preserves existing entries and uses a non-forced atomic commit", async () => {
   const mock = github();
   const result = await publishRecipe({token:"github_pat_test",input,request:mock.request});

@@ -74,7 +74,7 @@ function render() {
     body.append(
       element("div", "tag", recipe.cat),
       element("h3", "", recipe.title),
-      element("div", "meta", `⏱ ${recipe.time}`),
+      ...(recipe.time?.trim() ? [element("div", "meta", `⏱ ${recipe.time}`)] : []),
       element("p", "desc", recipe.desc),
       button
     );
@@ -93,7 +93,7 @@ function openRecipe(index, button) {
   content.replaceChildren();
   if (photoUrl(recipe.image)) content.append(recipePhoto(recipe, "recipe-photo", false));
   content.append(
-    element("div", "kicker", `${recipe.cat} · ${recipe.time}`),
+    element("div", "kicker", recipe.time?.trim() ? `${recipe.cat} · ${recipe.time}` : recipe.cat),
     element("h2", "", recipe.title),
     element("p", "recipe-text", recipe.desc),
     element("h3", "", "Ингредиенты"),
@@ -132,7 +132,8 @@ async function loadRecipes() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     if (!Array.isArray(data.recipes) || !data.recipes.every(recipe =>
-      recipe && ["title", "cat", "time", "desc", "steps"].every(key => typeof recipe[key] === "string") &&
+      recipe && ["title", "cat", "desc", "steps"].every(key => typeof recipe[key] === "string") &&
+      (recipe.time === undefined || typeof recipe.time === "string") &&
       Array.isArray(recipe.ing) && recipe.ing.every(ingredient => typeof ingredient === "string")
     )) throw new Error("Некорректный формат рецептов");
     const published = recipes.filter(recipe => recipe.justPublished);

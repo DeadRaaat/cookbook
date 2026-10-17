@@ -133,7 +133,7 @@ footer{padding:30px 24px;text-align:center;color:#8c777d;font-size:14px}
       <label>Название<input name="title" required maxlength="160" placeholder="Например, мой домашний хлеб"></label>
       <div class="editor-row">
         <label>Категория<input name="cat" list="editor-categories" required maxlength="100" placeholder="Выберите или введите свою"><datalist id="editor-categories"></datalist></label>
-        <label>Время приготовления<input name="time" required maxlength="80" placeholder="1 ч 20 мин"></label>
+        <label>Время приготовления (необязательно)<input name="time" maxlength="80" placeholder="1 ч 20 мин"></label>
       </div>
       <label>Краткое описание<textarea name="desc" required rows="2" maxlength="2000" placeholder="Чем вам нравится этот рецепт?"></textarea></label>
       <label>Фотография <span class="editor-optional">необязательно</span><input name="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG или WebP, до 8 МБ.</small></label>

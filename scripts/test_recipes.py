@@ -41,12 +41,25 @@ class RecipeValidationTests(unittest.TestCase):
         validate(self.data)
 
     def test_invalid_required_fields(self):
-        for field in ("title", "cat", "time", "desc", "steps", "ing"):
+        for field in ("title", "cat", "desc", "steps", "ing"):
             with self.subTest(field=field):
                 invalid = copy.deepcopy(self.data)
                 del invalid["recipes"][0][field]
                 with self.assertRaises(AssertionError):
                     validate(invalid)
+
+    def test_optional_cooking_time(self):
+        recipe = self.data["recipes"][0]
+        del recipe["time"]
+        validate(self.data)
+        for value in ("", "   "):
+            recipe["time"] = value
+            validate(self.data)
+
+    def test_invalid_cooking_time(self):
+        self.data["recipes"][0]["time"] = 60
+        with self.assertRaises(AssertionError):
+            validate(self.data)
 
     def test_unsafe_or_missing_photo(self):
         for path in ("assets/../README.md", "https://example.com/a.jpg", "assets/not-found.jpg", "assets/uploads/../../index.html"):

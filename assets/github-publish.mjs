@@ -8,7 +8,7 @@ export function validateRecipe(input) {
   const recipe = {};
   for (const [field, limit] of [["title", 160], ["cat", 100], ["time", 80], ["desc", 2000], ["steps", 30000]]) {
     const value = typeof input[field] === "string" ? input[field].trim() : "";
-    if (!value || value.length > limit) throw new PublishError("Заполните все поля рецепта и проверьте длину текста.", "validation");
+    if ((!value && field !== "time") || value.length > limit) throw new PublishError("Заполните обязательные поля рецепта и проверьте длину текста.", "validation");
     recipe[field] = value;
   }
   if (recipe.cat === "Все") throw new PublishError("«Все» — служебное название. Выберите другое название категории.", "validation");
