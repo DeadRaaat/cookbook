@@ -55,7 +55,15 @@ function recipePhoto(recipe, className, lazy = true) {
   image.alt = recipe.title;
   image.loading = lazy ? "lazy" : "eager";
   image.src = url;
-  image.addEventListener("error", () => {container.textContent = fallback;}, {once: true});
+  image.addEventListener("error", () => {
+    if (recipe.previewImage) {
+      container.textContent = fallback;
+      return;
+    }
+    // A newly published photo can have a cached 404 from before deployment.
+    image.addEventListener("error", () => {container.textContent = fallback;}, {once: true});
+    image.src = `${url}?retry=${Date.now()}`;
+  }, {once: true});
   container.append(image);
   return container;
 }
